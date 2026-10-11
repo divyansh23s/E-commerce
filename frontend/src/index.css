@@ -3,6 +3,11 @@
   padding: 0;
   box-sizing: border-box;
 }
+html,
+body,
+#root {
+  min-height: 100%;
+}
 html {
   font-size: 62.5%;
 }
@@ -10,8 +15,10 @@ body {
   font-family: "Open Sans", sans-serif;
   font-size: 1.6rem;
   font-weight: 400;
-  padding: 1rem;
+  padding: 0 1.6rem;
   line-height: 1.7;
+  color: #202124;
+  background: #fff;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }

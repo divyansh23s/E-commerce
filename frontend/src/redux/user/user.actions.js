@@ -7,7 +7,12 @@ export const registerUser = (user) => (dispatch) => {
   axios
     .post("api/v1/user/register", user)
     .then((res) => console.log(res))
-    .catch((err) => console.log(err));
+    .catch((err) =>
+      console.error(
+        "Signup failed:",
+        (err.response && err.response.data) || err.message
+      )
+    );
 };
 
 // Login - Get User Token
@@ -29,7 +34,12 @@ export const loginUser = (user, history) => (dispatch) => {
       dispatch(setCurrentUser(user));
       history.push("/shop");
     })
-    .catch((err) => console.log(err));
+    .catch((err) =>
+      console.error(
+        "Login failed:",
+        (err.response && err.response.data) || err.message
+      )
+    );
 };
 
 // set looged in user

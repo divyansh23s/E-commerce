@@ -1,28 +1,25 @@
 import React from "react";
 import "./directoryItem.styles.scss";
-import { withRouter } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 function DirectoryItem(props) {
   const { title, imageUrl, linkUrl } = props.item;
   // console.log(props);
 
   return (
-    <div
-      className="directory-item"
-      onClick={() => props.history.push(`/${linkUrl}`)}
+    <Link
+      className={`directory-item${props.item.size ? " directory-item--large" : ""}`}
+      to={`/${linkUrl}`}
     >
       <div
         className="directory-item--image"
         style={{ backgroundImage: `url(${imageUrl})` }}
       />
-      <button
-        className="directory-item--title"
-        onClick={() => props.history.push(`/${linkUrl}`)}
-      >
+      <div className="directory-item--title">
         {title}
-      </button>
-    </div>
+      </div>
+    </Link>
   );
 }
 
-export default withRouter(DirectoryItem);
+export default DirectoryItem;

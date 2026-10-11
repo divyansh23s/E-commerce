@@ -4,8 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node app.js",
-    "server": "nodemon server.js",
+    "start": "node --disable-warning=DEP0170 app.js",
+    "server": "nodemon --node-args=--disable-warning=DEP0170 app.js",
+    "seed": "node --disable-warning=DEP0170 seed.js",
     "client-install": "npm install --prefix ../frontend",
     "client": "npm start --prefix ../frontend",
     "dev": "concurrently \"npm run server\" \"npm run client\"",

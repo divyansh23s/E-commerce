@@ -5,7 +5,7 @@ export default function Footer() {
     <footer>
       <p>
         Copyrights &copy; 2020 . design by{" "}
-        <a href="https://www.linkedin.com/in/ajay-meena1/">Ajay</a>
+        <a href="https://www.linkedin.com/in/divyansh-singh-916a14256/">Divyansh</a>
       </p>
     </footer>
   );

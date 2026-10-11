@@ -1,14 +1,13 @@
 const express = require("express");
 const router = express.Router();
 
-const mongoose = require("mongoose");
 const Product = require("../model/ProductModal");
 const Category = require("../model/CatModal");
 
 // Get all products
 router.get("/product", (req, res) => {
   Product.find()
-    .then((products) => res.json([]))
+    .then((products) => res.json(products))
     .catch((err) =>
       res.status(404).json({
         nopostsfound: "No product found",
@@ -19,7 +18,7 @@ router.get("/product", (req, res) => {
 // Get all  category name
 router.get("/category", (req, res) => {
   Category.find()
-    .then((category) => res.json([]))
+    .then((category) => res.json(category))
     .catch((err) =>
       res.status(404).json({
         nocatsfound: "No Category found",
