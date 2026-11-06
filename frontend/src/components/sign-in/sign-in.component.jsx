@@ -2,10 +2,9 @@ import React, { Component } from "react";
 import "./sign-in.styles.scss";
 import FormInput from "../form-input/form-input.component";
 import CustomButton from "../custom-button/custom-button.component";
-import { connect } from "react-redux";
-import { loginUser } from "../../redux/user/user.actions";
 import { withRouter } from "react-router-dom";
-class SignIn extends Component {
+import { useApp } from "../../context/AppContext";
+class SignInForm extends Component {
   constructor(props) {
     super(props);
 
@@ -21,9 +20,13 @@ class SignIn extends Component {
   };
 
   handleSubmit = async (event) => {
-    this.props.loginUser(this.state, this.props.history);
-
     event.preventDefault();
+    try {
+      await this.props.login(this.state);
+      this.props.history.push("/shop");
+    } catch (error) {
+      alert((error.response && error.response.data) || "Unable to sign in.");
+    }
   };
   render() {
     return (
@@ -64,4 +67,9 @@ class SignIn extends Component {
   }
 }
 
-export default connect(null, { loginUser })(withRouter(SignIn));
+function SignIn(props) {
+  const { login } = useApp();
+  return <SignInForm {...props} login={login} />;
+}
+
+export default withRouter(SignIn);

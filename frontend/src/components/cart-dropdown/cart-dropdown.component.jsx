@@ -3,8 +3,10 @@ import "./cart-dropdown.styles.scss";
 import CartItem from "../cart-item/cart-item.component";
 import CustomButton from "../custom-button/custom-button.component";
 import { withRouter } from "react-router-dom";
-import { connect } from "react-redux";
-const CartDropdown = ({ cartItems, history, toggleCart }) => (
+import { useApp } from "../../context/AppContext";
+const CartDropdown = ({ history, toggleCart }) => {
+  const { cartItems } = useApp();
+  return (
   <div className="cart-dropdown">
     <div className="cart-items">
       {cartItems && cartItems.length ? (
@@ -24,10 +26,7 @@ const CartDropdown = ({ cartItems, history, toggleCart }) => (
       GO TO CHECKOUT{" "}
     </CustomButton>
   </div>
-);
+  );
+};
 
-const mapStateToProps = (state) => ({
-  cartItems: state.cart.cartItems,
-});
-
-export default connect(mapStateToProps)(withRouter(CartDropdown));
+export default withRouter(CartDropdown);

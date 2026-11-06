@@ -1,9 +1,9 @@
 import React from "react";
 import "./shopItemCard.styles.scss";
 import CustomButton from "../custom-button/custom-button.component";
-import { connect } from "react-redux";
-import { addItem } from "../../redux/cart/cart.action";
-const ShopItemCard = ({ item, addItem }) => {
+import { useApp } from "../../context/AppContext";
+const ShopItemCard = ({ item }) => {
+  const { addItem } = useApp();
   const { name, imageUrl, price } = item;
   return (
     <div className="collection-item">
@@ -25,4 +25,4 @@ const ShopItemCard = ({ item, addItem }) => {
   );
 };
 
-export default connect(null, { addItem })(ShopItemCard);
+export default ShopItemCard;

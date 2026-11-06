@@ -2,9 +2,8 @@ import React, { Component } from "react";
 import "./sign-up.styles.scss";
 import FormInput from "../form-input/form-input.component";
 import CustomButton from "../custom-button/custom-button.component";
-import { connect } from "react-redux";
-import { registerUser } from "../../redux/user/user.actions";
-class SignUp extends Component {
+import { useApp } from "../../context/AppContext";
+class SignUpForm extends Component {
   constructor(props) {
     super(props);
 
@@ -34,7 +33,12 @@ class SignUp extends Component {
       email: email,
       password: password,
     };
-    this.props.registerUser(newUser);
+    try {
+      await this.props.register(newUser);
+      alert("Account created. You can now sign in.");
+    } catch (error) {
+      alert((error.response && error.response.data) || "Unable to create account.");
+    }
   };
   render() {
     return (
@@ -86,4 +90,9 @@ class SignUp extends Component {
   }
 }
 
-export default connect(null, { registerUser })(SignUp);
+function SignUp(props) {
+  const { register } = useApp();
+  return <SignUpForm {...props} register={register} />;
+}
+
+export default SignUp;

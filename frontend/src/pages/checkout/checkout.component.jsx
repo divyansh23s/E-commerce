@@ -2,11 +2,11 @@ import React from "react";
 import "./checkout.styles.scss";
 import CheckoutItem from "../../components/checkout-item/checkout-item.component";
 // import StripeCheckoutButton from "../../components/stripe-button/stripe-button.component";
-import { connect } from "react-redux";
-import { selectCartTotal } from "../../redux/cart/cart.selectors";
+import { useApp } from "../../context/AppContext";
 
-const CheckoutPage = ({ cartItems, total }) => (
-  <div className="checkout-page">
+const CheckoutPage = () => {
+  const { cartItems, cartTotal } = useApp();
+  return <div className="checkout-page">
     <div className="checkout-header">
       <div className="header-block">
         <span>Product</span>
@@ -34,16 +34,11 @@ const CheckoutPage = ({ cartItems, total }) => (
       ))}
 
     <div className="total">
-      <span>TOTAL : ${total}</span>
+      <span>TOTAL : ${cartTotal}</span>
     </div>
 
-    {/* <StripeCheckoutButton price={total} /> */}
-  </div>
-);
+    {/* <StripeCheckoutButton price={cartTotal} /> */}
+  </div>;
+};
 
-const mapStateToProps = (state) => ({
-  cartItems: state.cart.cartItems,
-  total: selectCartTotal(state.cart.cartItems),
-});
-
-export default connect(mapStateToProps)(CheckoutPage);
+export default CheckoutPage;

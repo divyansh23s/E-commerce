@@ -1,24 +1,17 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 import "./mainNavigation.styles.scss";
 import { ReactComponent as Logo } from "../../assets/crown.svg";
 import { Link } from "react-router-dom";
 import CartDropdown from "../cart-dropdown/cart-dropdown.component";
-import { connect } from "react-redux";
-import { logoutUser } from "../../redux/user/user.actions";
 import CartIcon from "../cart-icon/cart-icon.component";
-class MainNavigation extends Component {
-  constructor() {
-    super();
-    this.state = {
-      toggleCart: false,
-    };
-  }
-  toggleCartHidden = () => {
-    this.setState({ toggleCart: !this.state.toggleCart });
-  };
-  render() {
-    const { currentUser } = this.props;
-    return (
+import { useApp } from "../../context/AppContext";
+
+function MainNavigation() {
+  const [cartOpen, setCartOpen] = useState(false);
+  const { currentUser, logout } = useApp();
+  const toggleCart = () => setCartOpen((open) => !open);
+
+  return (
       <nav className="header">
         <Link className="header__logo" to="/">
           <Logo />
@@ -44,23 +37,17 @@ class MainNavigation extends Component {
           ) : (
             <li
               className="header__nav--item"
-              onClick={() => this.props.logoutUser()}
+              onClick={logout}
             >
               LOGOUT
             </li>
           )}
 
-          <CartIcon toggleCartHidden={this.toggleCartHidden} />
+          <CartIcon toggleCartHidden={toggleCart} />
         </ul>
-        {this.state.toggleCart && (
-          <CartDropdown toggleCart={this.toggleCartHidden} />
-        )}
+        {cartOpen && <CartDropdown toggleCart={toggleCart} />}
       </nav>
-    );
-  }
+  );
 }
 
-const mapStateToProps = (state) => ({
-  currentUser: state.user.currentUser,
-});
-export default connect(mapStateToProps, { logoutUser })(MainNavigation);
+export default MainNavigation;

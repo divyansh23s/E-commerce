@@ -2,9 +2,7 @@ import React from "react";
 import "./category.styles.scss";
 import { Link } from "react-router-dom";
 import { CAT_NAMES } from "./cat_data";
-import { connect } from "react-redux";
-import { getProductByCategory } from "../../redux/producs/products.action";
-function CategoryItem(props) {
+function CategoryItem() {
   const categories = CAT_NAMES;
   return (
     <div className="category">
@@ -15,7 +13,6 @@ function CategoryItem(props) {
             className="category__item--link"
             key={idx}
             to={`/shop/${cat}`}
-            onClick={() => props.getProductByCategory(cat)}
           >
             {cat}
           </Link>
@@ -25,4 +22,4 @@ function CategoryItem(props) {
   );
 }
 
-export default connect(null, { getProductByCategory })(CategoryItem);
+export default CategoryItem;

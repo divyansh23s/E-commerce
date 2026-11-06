@@ -1,17 +1,17 @@
 import React from "react";
 import { Route, Redirect } from "react-router-dom";
-import { connect } from "react-redux";
-const PrivateRoute = ({ component: Component, auth, ...rest }) => (
-  <Route
-    {...rest}
-    render={(props) =>
-      auth ? <Component {...props} /> : <Redirect to="/signin" />
-    }
-  />
-);
+import { useApp } from "./context/AppContext";
 
-const mapStateToProps = (state) => ({
-  auth: state.user.currentUser,
-});
+const PrivateRoute = ({ component: Component, ...rest }) => {
+  const { currentUser } = useApp();
+  return (
+    <Route
+      {...rest}
+      render={(props) =>
+        currentUser ? <Component {...props} /> : <Redirect to="/signin" />
+      }
+    />
+  );
+};
 
-export default connect(mapStateToProps)(PrivateRoute);
+export default PrivateRoute;
